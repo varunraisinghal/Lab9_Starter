@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "540df8ab08c94887a65b8d662c54e5dd"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    TrackJS.track('Testing TrackJS!');
+  </script>
+  
 
 <head>
   <meta charset="UTF-8">
@@ -88,6 +97,7 @@
   </main>
 
   <script>
+    
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -97,12 +107,116 @@
       let operator = document.querySelector('#operator').value;
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
-
+    
+    let output = document.querySelector('output');
+    let firstNum = document.querySelector('#first-num').value;
+    let secondNum = document.querySelector('#second-num').value;
+    let operator = document.querySelector('#operator').value;
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener('click', function() 
+    {
+      console.log(operator);
+    });
+    errorBtns[1].addEventListener('click', function() 
+    {
+      console.error("I'm sorry, Varun. I'm afraid I can't do that.");
+    });
+    errorBtns[2].addEventListener('click', function() 
+    {
+      console.count();
+    });
+    errorBtns[3].addEventListener('click', function() 
+    {
+      console.warn('warn');
+    });
+    errorBtns[4].addEventListener('click', function() 
+    {
+      const reason = 'The value inside the output is not expected to be 0';
+      console.assert(output.innerHTML == 0, {output, reason});
+    });
+    errorBtns[5].addEventListener('click', function() 
+    {
+      console.clear();
+    });
+    errorBtns[6].addEventListener('click', function() 
+    {
+      console.dir(operator);
+    });
+    errorBtns[7].addEventListener('click', function() 
+    {
+      console.dirxml(output);
+    });
+    errorBtns[8].addEventListener('click', function() 
+    {
+      console.group();
+    });
+    errorBtns[9].addEventListener('click', function() 
+    {
+      console.groupEnd();
+    });
+    
+    errorBtns[10].addEventListener('click', function() 
+    {
+      console.table([firstNum, operator, secondNum, output.innerHTML]);
+    });
+    errorBtns[11].addEventListener('click', function() 
+    {
+      console.time();
+    });
+    errorBtns[12].addEventListener('click', function() 
+    {
+      console.timeEnd();
+    });
+    errorBtns[13].addEventListener('click', function() 
+    {
+      const first = () => { second(); };
+      const second = () => { third(); };
+      const third = () => { fourth(); };
+      const fourth = () => { console.trace(); };
+      first();
+    });
+
+
+    class randomError extends Error 
+    {
+      constructor(message) 
+      {
+        super(message); 
+        this.name = "randomError"; 
+      }
+    }
+
+    function testError() 
+    {
+      throw new randomError("This is a random error!");
+    }
+
+    errorBtns[14].addEventListener('click', function() 
+    {
+      try
+      {
+        testError();
+      }
+      catch (error)
+      {
+        console.log("Representation of us catching an error and then following it up by returning the error");
+        console.error(error);
+      }
+      finally
+      {
+        console.log("This is the finally block should always work");
+      }
+    });
+
+
+
+
   </script>
+
+                          
 </body>
 
 </html>
